@@ -6,48 +6,174 @@
     <title>Payment Reminder - Terabytes IT Solutions</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
+            background-color: #e6e6e6;
+            font-family: 'Arial', sans-serif;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #e6e6e6;
-            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 15px;
+            box-sizing: border-box;
         }
-        img {
-            max-width: 100%;
-            height: auto;
-            max-height: 85vh;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        .card {
+            background-color: #ffffff;
+            max-width: 400px;
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            padding: 30px 25px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: 900;
+            color: #003366;
+            margin-bottom: 25px;
+        }
+        .title-blue {
+            color: #003366;
+            font-size: 38px;
+            font-weight: 900;
+            margin: 0;
+            line-height: 1.1;
+            letter-spacing: -1px;
+        }
+        .title-red {
+            color: #e60000;
+            font-size: 38px;
+            font-weight: 900;
+            margin: 0;
+            line-height: 1.1;
+            letter-spacing: -1px;
+        }
+        .bell { font-size: 32px; vertical-align: middle; }
+        .message-box {
+            display: flex;
+            align-items: flex-start;
+            text-align: left;
+            margin-top: 25px;
+        }
+        .calendar-icon {
+            font-size: 45px;
+            margin-right: 15px;
+            color: #e60000;
+        }
+        .message-text {
+            font-size: 15px;
+            color: #444;
+            line-height: 1.4;
+        }
+        hr {
+            border: none;
+            border-top: 2px solid #ddd;
+            margin: 20px 0;
+            position: relative;
+        }
+        hr::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: -4px;
+            width: 6px;
+            height: 6px;
+            background-color: #e60000;
+            border-radius: 50%;
+        }
+        .warning-red {
+            color: #e60000;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        .warning-sub {
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        .qr-code {
+            width: 160px;
+            height: 160px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 5px;
+        }
+        .account-name {
+            color: #0056b3;
+            font-weight: bold;
+            font-size: 18px;
+            display: block;
+            margin-bottom: 20px;
         }
         .pay-button {
-            margin-top: 20px;
-            padding: 15px 30px;
-            background-color: #007bff;
+            display: inline-block;
+            padding: 15px 20px;
+            background-color: #0056b3;
             color: white;
             text-decoration: none;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             border-radius: 8px;
-            box-shadow: 0px 4px 6px rgba(0,0,0,0.2);
             transition: background-color 0.3s;
+            width: 100%;
+            box-sizing: border-box;
         }
         .pay-button:hover {
-            background-color: #0056b3;
+            background-color: #003d82;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 11px;
+            color: #003366;
         }
     </style>
 </head>
 <body>
+    <div class="card">
+        <!-- Logo Text -->
+        <div class="logo">🌐 TERABYTES IT SOLUTIONS</div>
+        
+        <!-- Headers -->
+        <h1 class="title-blue">PAYMENT</h1>
+        <h1 class="title-red">REMINDER <span class="bell">🔔</span></h1>
 
-    <!-- Siguroha nga sakto ang ngalan sa imong picture diri -->
-    <img src="62057.png" alt="Payment Reminder Poster">
+        <!-- Message -->
+        <div class="message-box">
+            <div class="calendar-icon">📅</div>
+            <div class="message-text">
+                Please settle your internet subscription bill as soon as possible to avoid service disconnection.
+            </div>
+        </div>
 
-    <!-- Kini ang button para maka-download sa QR Code ang client -->
-    <a href="62057.png" download="Terabytes_GCash_QR.png" class="pay-button">
-        📥 Save QR Code for GCash/Maya
-    </a>
+        <hr>
 
+        <!-- Warnings -->
+        <div class="warning-red">
+            Accounts with unpaid balance will be subject to disconnection.
+        </div>
+        <div class="warning-sub">
+            If you have any outstanding balance, please settle it at your earliest convenience.
+        </div>
+
+        <!-- QR Code Section -->
+        <div>
+            <!-- Siguroha nga qr.png ang ngalan sa imong gi-crop nga picture -->
+            <img src="qr.png" alt="GCash QR Code" class="qr-code">
+            <span class="account-name">RE***A J.</span>
+        </div>
+
+        <!-- Download Button -->
+        <a href="qr.png" download="Terabytes_GCash_QR.png" class="pay-button">
+            📥 Save QR Code for GCash/Maya
+        </a>
+
+        <!-- Footer -->
+        <div class="footer">
+            Powered by<br><b>TERABYTES IT SOLUTIONS</b>
+        </div>
+    </div>
 </body>
 </html>
