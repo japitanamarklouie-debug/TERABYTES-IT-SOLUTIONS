@@ -9,23 +9,45 @@
             margin: 0;
             padding: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #e6e6e6; /* Gray nga background para mugawas ang puti nga poster */
+            background-color: #e6e6e6;
+            font-family: Arial, sans-serif;
         }
         img {
             max-width: 100%;
             height: auto;
-            max-height: 100vh; /* Para dili molapas sa screen sa cellphone */
+            max-height: 85vh;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .pay-button {
+            margin-top: 20px;
+            padding: 15px 30px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0,0,0,0.2);
+            transition: background-color 0.3s;
+        }
+        .pay-button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
 
-    <!-- Kung gi-rename nimo ang picture, usba ang 62057.png ngadto sa bag-ong ngalan -->
+    <!-- Siguroha nga sakto ang ngalan sa imong picture diri -->
     <img src="62057.png" alt="Payment Reminder Poster">
+
+    <!-- Kini ang button para maka-download sa QR Code ang client -->
+    <a href="62057.png" download="Terabytes_GCash_QR.png" class="pay-button">
+        📥 Save QR Code for GCash/Maya
+    </a>
 
 </body>
 </html>
