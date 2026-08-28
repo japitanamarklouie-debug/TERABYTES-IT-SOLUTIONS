@@ -26,10 +26,9 @@
             text-align: center;
             box-sizing: border-box;
         }
-        .logo {
-            font-size: 20px;
-            font-weight: 900;
-            color: #003366;
+        .main-logo {
+            max-width: 220px;
+            height: auto;
             margin-bottom: 25px;
         }
         .title-blue {
@@ -95,17 +94,9 @@
             text-align: left;
         }
         .qr-code {
-            width: 160px;
-            height: 160px;
-            border: 1px solid #ddd;
+            max-width: 180px;
+            height: auto;
             border-radius: 8px;
-            margin-bottom: 5px;
-        }
-        .account-name {
-            color: #0056b3;
-            font-weight: bold;
-            font-size: 18px;
-            display: block;
             margin-bottom: 20px;
         }
         .pay-button {
@@ -133,8 +124,8 @@
 </head>
 <body>
     <div class="card">
-        <!-- Logo Text -->
-        <div class="logo">🌐 TERABYTES IT SOLUTIONS</div>
+        <!-- Main Logo Picture (logo.jpg) -->
+        <img src="logo.jpg" alt="Terabytes IT Solutions Logo" class="main-logo">
         
         <!-- Headers -->
         <h1 class="title-blue">PAYMENT</h1>
@@ -160,9 +151,8 @@
 
         <!-- QR Code Section -->
         <div>
-            <!-- Siguroha nga qr.png ang ngalan sa imong gi-crop nga picture -->
+            <!-- Imong QR Code Picture -->
             <img src="qr.png" alt="GCash QR Code" class="qr-code">
-            <span class="account-name">RE***A J.</span>
         </div>
 
         <!-- Download Button -->
