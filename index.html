@@ -50,15 +50,56 @@
         .bell { font-size: 32px; vertical-align: middle; }
         .message-box {
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             text-align: left;
             margin-top: 25px;
         }
+        
+        /* Real-time Calendar CSS */
         .calendar-icon {
-            font-size: 45px;
+            width: 60px;
+            background: #fff;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            text-align: center;
+            border: 1px solid #ddd;
             margin-right: 15px;
-            color: #e60000;
+            flex-shrink: 0;
+            position: relative;
+            margin-top: 5px;
         }
+        /* Binder Rings */
+        .calendar-icon::before, .calendar-icon::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            width: 8px;
+            height: 12px;
+            background: #555;
+            border-radius: 4px;
+            border: 1px solid #fff;
+        }
+        .calendar-icon::before { left: 12px; }
+        .calendar-icon::after { right: 12px; }
+        
+        .calendar-month {
+            background: #e60000;
+            color: #fff;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 6px 0 3px 0;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            text-transform: uppercase;
+        }
+        .calendar-day {
+            font-size: 26px;
+            font-weight: 900;
+            color: #333;
+            padding: 5px 0;
+            line-height: 1;
+        }
+
         .message-text {
             font-size: 15px;
             color: #444;
@@ -94,10 +135,13 @@
             text-align: left;
         }
         .qr-code {
-            max-width: 180px;
+            width: 200px;
+            max-width: 100%;
             height: auto;
             border-radius: 8px;
             margin-bottom: 20px;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
         }
         .pay-button {
             display: inline-block;
@@ -131,9 +175,12 @@
         <h1 class="title-blue">PAYMENT</h1>
         <h1 class="title-red">REMINDER <span class="bell">🔔</span></h1>
 
-        <!-- Message -->
+        <!-- Message uban ang Real-time Calendar -->
         <div class="message-box">
-            <div class="calendar-icon">📅</div>
+            <div class="calendar-icon">
+                <div class="calendar-month" id="calMonth">Mth</div>
+                <div class="calendar-day" id="calDay">00</div>
+            </div>
             <div class="message-text">
                 Please settle your internet subscription bill as soon as possible to avoid service disconnection.
             </div>
@@ -165,6 +212,13 @@
             Powered by<br><b>TERABYTES IT SOLUTIONS</b>
         </div>
     </div>
+
+    <!-- JavaScript para sa Real-time Date -->
+    <script>
+        const date = new Date();
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        document.getElementById('calMonth').textContent = monthNames[date.getMonth()];
+        document.getElementById('calDay').textContent = date.getDate();
+    </script>
 </body>
 </html>
-
