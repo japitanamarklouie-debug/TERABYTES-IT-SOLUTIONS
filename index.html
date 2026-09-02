@@ -4,221 +4,407 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Reminder - Terabytes IT Solutions</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,400&display=swap');
+
+        :root {
+            --bg-dark: #020813;
+            --neon-blue: #00a8ff;
+            --neon-blue-glow: rgba(0, 168, 255, 0.3);
+            --neon-red: #ff3333;
+            --text-light: #ffffff;
+            --text-dim: #a0c4d8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+
         body {
-            background-color: #e6e6e6;
-            font-family: 'Arial', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
-            padding: 15px;
-            box-sizing: border-box;
-        }
-        .card {
-            background-color: #ffffff;
-            max-width: 400px;
-            width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            padding: 30px 25px;
-            text-align: center;
-            box-sizing: border-box;
-        }
-        .main-logo {
-            max-width: 220px;
-            height: auto;
-            margin-bottom: 25px;
-        }
-        .title-blue {
-            color: #003366;
-            font-size: 38px;
-            font-weight: 900;
-            margin: 0;
-            line-height: 1.1;
-            letter-spacing: -1px;
-        }
-        .title-red {
-            color: #e60000;
-            font-size: 38px;
-            font-weight: 900;
-            margin: 0;
-            line-height: 1.1;
-            letter-spacing: -1px;
-        }
-        .bell { font-size: 32px; vertical-align: middle; }
-        .message-box {
-            display: flex;
-            align-items: center;
-            text-align: left;
-            margin-top: 25px;
-        }
-        
-        /* Real-time Calendar CSS */
-        .calendar-icon {
-            width: 60px;
-            background: #fff;
-            border-radius: 6px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            text-align: center;
-            border: 1px solid #ddd;
-            margin-right: 15px;
-            flex-shrink: 0;
-            position: relative;
-            margin-top: 5px;
-        }
-        /* Binder Rings */
-        .calendar-icon::before, .calendar-icon::after {
-            content: '';
-            position: absolute;
-            top: -5px;
-            width: 8px;
-            height: 12px;
-            background: #555;
-            border-radius: 4px;
-            border: 1px solid #fff;
-        }
-        .calendar-icon::before { left: 12px; }
-        .calendar-icon::after { right: 12px; }
-        
-        .calendar-month {
-            background: #e60000;
-            color: #fff;
-            font-size: 13px;
-            font-weight: bold;
-            padding: 6px 0 3px 0;
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
-            text-transform: uppercase;
-        }
-        .calendar-day {
-            font-size: 26px;
-            font-weight: 900;
-            color: #333;
-            padding: 5px 0;
-            line-height: 1;
+            padding: 20px;
+            /* Simulating the abstract background */
+            background-image: radial-gradient(circle at top right, #0a1f44 0%, var(--bg-dark) 50%);
         }
 
-        .message-text {
-            font-size: 15px;
-            color: #444;
-            line-height: 1.4;
-        }
-        hr {
-            border: none;
-            border-top: 2px solid #ddd;
-            margin: 20px 0;
-            position: relative;
-        }
-        hr::after {
-            content: "";
-            position: absolute;
-            right: 0;
-            top: -4px;
-            width: 6px;
-            height: 6px;
-            background-color: #e60000;
-            border-radius: 50%;
-        }
-        .warning-red {
-            color: #e60000;
-            font-size: 13px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-align: left;
-        }
-        .warning-sub {
-            color: #666;
-            font-size: 13px;
-            margin-bottom: 30px;
-            text-align: left;
-        }
-        .qr-code {
-            width: 200px;
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-        }
-        .pay-button {
-            display: inline-block;
-            padding: 15px 20px;
-            background-color: #0056b3;
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 8px;
-            transition: background-color 0.3s;
+        .reminder-card {
+            background: rgba(2, 8, 19, 0.8);
+            border: 1px solid rgba(0, 168, 255, 0.2);
+            border-radius: 15px;
+            max-width: 800px;
             width: 100%;
-            box-sizing: border-box;
+            padding: 30px;
+            box-shadow: 0 0 30px var(--neon-blue-glow);
+            backdrop-filter: blur(10px);
         }
-        .pay-button:hover {
-            background-color: #003d82;
+
+        /* Header */
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
         }
-        .footer {
-            margin-top: 30px;
-            font-size: 11px;
-            color: #003366;
+        .header-logo h2 {
+            font-weight: 900;
+            letter-spacing: 2px;
+            line-height: 1;
+        }
+        .header-logo h2 span {
+            display: block;
+            font-size: 0.4em;
+            color: var(--neon-blue);
+            font-weight: 400;
+            letter-spacing: 5px;
+            margin-top: 5px;
+        }
+
+        /* Grid Layout */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        /* Left Column */
+        .title-primary {
+            font-size: 3em;
+            font-style: italic;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 15px;
+        }
+        .title-primary .blue-text {
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+        .tagline {
+            color: var(--text-dim);
+            font-size: 0.8em;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Date Box */
+        .date-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        .calendar-icon {
+            background: linear-gradient(135deg, #e0eaf5, #ffffff);
+            border-radius: 10px;
+            color: #000;
+            text-align: center;
+            min-width: 80px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        .calendar-icon .month {
+            background: #004792;
+            color: white;
+            font-weight: 700;
+            padding: 5px;
+            font-size: 0.9em;
+        }
+        .calendar-icon .day {
+            font-size: 2.5em;
+            font-weight: 900;
+            padding: 5px;
+        }
+        .date-text {
+            font-size: 0.95em;
+            line-height: 1.5;
+            color: #e0e0e0;
+        }
+
+        /* Warning Box */
+        .warning-box {
+            border: 1px solid var(--neon-red);
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            gap: 15px;
+            background: rgba(255, 51, 51, 0.05);
+            box-shadow: inset 0 0 10px rgba(255, 51, 51, 0.1);
+        }
+        .warning-box i {
+            color: var(--neon-red);
+            font-size: 1.5em;
+            margin-top: 3px;
+        }
+        .warning-box h4 {
+            color: var(--neon-red);
+            font-size: 0.9em;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        .warning-box p {
+            font-size: 0.8em;
+            color: var(--text-dim);
+        }
+
+        /* Right Column (Payment) */
+        .payment-panel {
+            border: 1px solid var(--neon-blue);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            background: rgba(0, 168, 255, 0.02);
+            box-shadow: 0 0 15px var(--neon-blue-glow);
+        }
+        .secure-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-dark);
+            border: 1px solid var(--neon-blue);
+            color: var(--text-light);
+            padding: 2px 15px;
+            border-radius: 20px;
+            font-size: 0.7em;
+            white-space: nowrap;
+            box-shadow: 0 0 10px var(--neon-blue-glow);
+        }
+        .gcash-btn {
+            background: #0050e6;
+            color: white;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 1.5em;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .scan-text {
+            font-size: 0.8em;
+            color: var(--neon-blue);
+            letter-spacing: 2px;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .scan-text::before, .scan-text::after {
+            content: "";
+            height: 1px;
+            width: 30px;
+            background: var(--neon-blue);
+        }
+        .qr-wrapper {
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 0 auto;
+            max-width: 200px;
+        }
+        .qr-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .fee-text {
+            font-size: 0.7em;
+            color: var(--text-dim);
+            margin-top: 10px;
+        }
+
+        /* Account Info Footer Row */
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            border: 1px solid var(--neon-blue);
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            background: rgba(0, 168, 255, 0.05);
+        }
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .info-icon {
+            background: rgba(0, 168, 255, 0.1);
+            color: var(--neon-blue);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2em;
+            border: 1px solid var(--neon-blue-glow);
+        }
+        .info-label {
+            font-size: 0.7em;
+            color: var(--neon-blue);
+            letter-spacing: 1px;
+        }
+        .info-value {
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        /* Action Button */
+        .action-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(90deg, #002244, #0055aa, #002244);
+            border: 1px solid var(--neon-blue);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 700;
+            box-shadow: 0 0 15px var(--neon-blue-glow);
+            transition: 0.3s;
+        }
+        .action-btn:hover {
+            box-shadow: 0 0 25px var(--neon-blue);
+            background: linear-gradient(90deg, #003366, #0066cc, #003366);
+        }
+
+        /* Main Footer */
+        .main-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.7em;
+            color: var(--text-dim);
+        }
+        .main-footer strong {
+            color: var(--neon-blue);
+            font-size: 1.2em;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            .info-row {
+                flex-direction: column;
+                gap: 15px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <!-- Main Logo Picture -->
-        <img src="logo.jpg" alt="Terabytes IT Solutions Logo" class="main-logo">
-        
-        <!-- Headers -->
-        <h1 class="title-blue">PAYMENT</h1>
-        <h1 class="title-red">REMINDER <span class="bell">🔔</span></h1>
 
-        <!-- Message uban ang Real-time Calendar -->
-        <div class="message-box">
-            <div class="calendar-icon">
-                <div class="calendar-month" id="calMonth">Mth</div>
-                <div class="calendar-day" id="calDay">00</div>
+<div class="reminder-card">
+    
+    <div class="header-logo">
+        <i class="fas fa-wifi" style="font-size: 2em; color: var(--neon-blue);"></i>
+        <h2>TERABYTES <span>IT SOLUTIONS</span></h2>
+    </div>
+
+    <div class="main-content">
+        <!-- Left Side -->
+        <div class="left-panel">
+            <h1 class="title-primary">PAYMENT<br><span class="blue-text">REMINDER</span> <i class="fas fa-bell" style="color: #ffd700; font-size: 0.8em; text-shadow: 0 0 10px #ffd700;"></i></h1>
+            
+            <div class="tagline">
+                <span style="color: var(--neon-blue);">////</span> 
+                FAST CONNECTION. RELIABLE SERVICE. 
+                <span style="color: var(--neon-blue);">////</span>
             </div>
-            <div class="message-text">
-                Please settle your internet subscription bill as soon as possible to avoid service disconnection.
+
+            <div class="date-section">
+                <div class="calendar-icon">
+                    <div class="month">SEP</div>
+                    <div class="day">2</div>
+                </div>
+                <div class="date-text">
+                    Please settle your internet subscription bill as soon as possible to avoid service disconnection.
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <i class="fas fa-exclamation-circle"></i>
+                <div>
+                    <h4>Accounts with unpaid balance will be subject to disconnection.</h4>
+                    <p>If you have any outstanding balance, please settle it at your earliest convenience.</p>
+                </div>
             </div>
         </div>
 
-        <hr>
-
-        <!-- Warnings -->
-        <div class="warning-red">
-            Accounts with unpaid balance will be subject to disconnection.
-        </div>
-        <div class="warning-sub">
-            If you have any outstanding balance, please settle it at your earliest convenience.
-        </div>
-
-        <!-- QR Code Section -->
-        <div>
-            <!-- Imong QR Code Picture -->
-            <img src="qr.jpg" alt="GCash QR Code" class="qr-code">
-        </div>
-
-        <!-- Download Button -->
-        <a href="qr.jpg" download="Terabytes_GCash_QR.jpg" class="pay-button">
-            📥 Save QR Code for GCash/Maya
-        </a>
-
-        <!-- Footer -->
-        <div class="footer">
-            Powered by<br><b>TERABYTES IT SOLUTIONS</b>
+        <!-- Right Side -->
+        <div class="payment-panel">
+            <div class="secure-badge"><i class="fas fa-lock"></i> SECURE & EASY PAYMENT</div>
+            
+            <div class="gcash-btn">
+                <i class="fas fa-wallet"></i> GCash
+            </div>
+            
+            <div class="scan-text">SCAN TO PAY</div>
+            
+            <div class="qr-wrapper">
+                <!-- Gi-refer nako ang file name nimo diri verbatim -->
+                <img src="62378.png" alt="QR Code">
+            </div>
+            
+            <div class="fee-text">Transfer fees may apply.</div>
         </div>
     </div>
 
-    <!-- JavaScript para sa Real-time Date -->
-    <script>
-        const date = new Date();
-        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        document.getElementById('calMonth').textContent = monthNames[date.getMonth()];
-        document.getElementById('calDay').textContent = date.getDate();
-    </script>
+    <!-- Info Row -->
+    <div class="info-row">
+        <div class="info-item">
+            <div class="info-icon"><i class="fas fa-user"></i></div>
+            <div>
+                <div class="info-label">ACCOUNT NAME</div>
+                <div class="info-value">RE*** A J.</div>
+            </div>
+        </div>
+        <div class="info-item">
+            <div class="info-icon"><i class="fas fa-phone"></i></div>
+            <div>
+                <div class="info-label">MOBILE NO.</div>
+                <div class="info-value">0964 092 ***</div>
+            </div>
+        </div>
+        <div class="info-item">
+            <div class="info-icon"><i class="fas fa-id-card"></i></div>
+            <div>
+                <div class="info-label">USER ID</div>
+                <div class="info-value">********8VRHKF</div>
+            </div>
+        </div>
+    </div>
+
+    <a href="62378.png" download class="action-btn">
+        <i class="fas fa-download"></i> Save QR Code for GCash/Maya
+    </a>
+
+    <div class="main-footer">
+        Powered by<br>
+        <strong>TERABYTES IT SOLUTIONS</strong>
+    </div>
+
+</div>
+
 </body>
 </html>
