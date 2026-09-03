@@ -25,6 +25,7 @@
         }
 
         body {
+            /* Mibalik sa plain dark color ang gawas nga bahin */
             background-color: var(--bg-dark);
             color: var(--text-light);
             display: flex;
@@ -32,24 +33,23 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px;
-            
-            /* BACKGROUND IMAGE (As is) */
-            background-image: url('tech-bg.jpg'); 
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
         }
 
         .reminder-card {
-            background: rgba(2, 8, 19, 0.85); 
-            border: 1px solid rgba(0, 168, 255, 0.2);
+            /* GIBALHIN DIRI ANG BACKGROUND IMAGE PARA SA SULOD RA SA BOX */
+            /* Naay rgba(2,8,19,0.7) aron medyo mo-dark ang picture ug maklaro ang text */
+            background: linear-gradient(rgba(2, 8, 19, 0.7), rgba(2, 8, 19, 0.7)), url('tech-bg.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            
+            border: 1px solid rgba(0, 168, 255, 0.4);
             border-radius: 15px;
             max-width: 800px;
             width: 100%;
             padding: 30px;
             box-shadow: 0 0 30px var(--neon-blue-glow);
-            backdrop-filter: blur(10px);
+            position: relative;
         }
 
         /* Header */
@@ -134,7 +134,8 @@
         .date-text {
             font-size: 0.95em;
             line-height: 1.5;
-            color: #e0e0e0;
+            color: #ffffff;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
 
         /* Warning Box */
@@ -144,8 +145,9 @@
             padding: 15px;
             display: flex;
             gap: 15px;
-            background: rgba(255, 51, 51, 0.05);
-            box-shadow: inset 0 0 10px rgba(255, 51, 51, 0.1);
+            background: rgba(255, 51, 51, 0.15); /* Gihimong mas klaro ang pula nga background */
+            box-shadow: inset 0 0 10px rgba(255, 51, 51, 0.2);
+            backdrop-filter: blur(5px);
         }
         .warning-box i {
             color: var(--neon-red);
@@ -160,7 +162,7 @@
         }
         .warning-box p {
             font-size: 0.8em;
-            color: var(--text-dim);
+            color: #f0f0f0;
         }
 
         /* Right Column (Payment) */
@@ -170,7 +172,8 @@
             padding: 20px;
             text-align: center;
             position: relative;
-            background: rgba(0, 168, 255, 0.02);
+            background: rgba(0, 168, 255, 0.05);
+            backdrop-filter: blur(5px);
             box-shadow: 0 0 15px var(--neon-blue-glow);
         }
         .secure-badge {
@@ -230,7 +233,7 @@
         }
         .fee-text {
             font-size: 0.7em;
-            color: var(--text-dim);
+            color: #d0e0f0;
             margin-top: 10px;
         }
 
@@ -242,7 +245,8 @@
             border-radius: 10px;
             padding: 15px 20px;
             margin-bottom: 20px;
-            background: rgba(0, 168, 255, 0.05);
+            background: rgba(0, 168, 255, 0.08);
+            backdrop-filter: blur(5px);
         }
         .info-item {
             display: flex;
@@ -269,6 +273,7 @@
         .info-value {
             font-weight: 700;
             font-size: 1.1em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
 
         /* Action Button */
@@ -297,7 +302,7 @@
             text-align: center;
             margin-top: 20px;
             font-size: 0.7em;
-            color: var(--text-dim);
+            color: #d0e0f0;
         }
         .main-footer strong {
             color: var(--neon-blue);
@@ -367,7 +372,7 @@
             <div class="scan-text">SCAN TO PAY</div>
             
             <div class="qr-wrapper">
-                <!-- GI-UPDATE PARA SA qr.jpg -->
+                <!-- QR CODE IMAGE -->
                 <img src="qr.jpg" alt="QR Code">
             </div>
             
@@ -400,7 +405,7 @@
         </div>
     </div>
 
-    <!-- GI-UPDATE PARA SA qr.jpg (DOWNLOAD BUTTON) -->
+    <!-- DOWNLOAD BUTTON -->
     <a href="qr.jpg" download class="action-btn">
         <i class="fas fa-download"></i> Save QR Code for GCash/Maya
     </a>
