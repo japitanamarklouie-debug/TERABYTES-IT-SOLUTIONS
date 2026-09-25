@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            var(--bg-body): #090e17;
+            --bg-body: #090e17;
             --bg-card: #151e2e;
             --bg-qr: #1e293b;
             --text-main: #f1f5f9;
@@ -18,7 +18,7 @@
             --danger: #ef4444;
             --danger-bg: rgba(239, 68, 68, 0.1);
             --border-line: #334155;
-            --card-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            --card-shadow: 0 15px 35px rgba(0,0,0,0.6);
         }
 
         body.light-mode {
@@ -33,12 +33,12 @@
             --danger: #dc2626;
             --danger-bg: rgba(220, 38, 38, 0.1);
             --border-line: #e2e8f0;
-            --card-shadow: 0 10px 30px rgba(148, 163, 184, 0.2);
+            --card-shadow: 0 15px 35px rgba(148, 163, 184, 0.2);
         }
 
         *, *::before, *::after {
             box-sizing: border-box;
-            transition: all 0.3s ease;
+            transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
         }
 
         body {
@@ -55,6 +55,7 @@
                 radial-gradient(var(--border-line) 1px, transparent 1px);
             background-size: 30px 30px;
             background-position: center center;
+            overflow-x: hidden;
         }
 
         .wrapper {
@@ -62,12 +63,18 @@
             border: 1px solid var(--border-line);
             border-radius: 12px;
             width: 100%;
-            /* Gipadak-an gikan 460px ngadto 520px para mas dako ang QR */
             max-width: 520px; 
             padding: 40px 25px;
             box-shadow: var(--card-shadow);
             position: relative;
             border-top: 4px solid var(--accent-green);
+            
+            /* Entrance and Floating Animations */
+            opacity: 0;
+            transform: translateY(40px);
+            animation: 
+                slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards, 
+                floatCard 6s ease-in-out infinite 0.8s;
         }
 
         .theme-switch {
@@ -85,11 +92,13 @@
             align-items: center;
             justify-content: center;
             font-size: 1.1rem;
+            z-index: 10;
         }
 
         .theme-switch:hover {
             border-color: var(--accent-green);
             color: var(--accent-green);
+            transform: rotate(15deg) scale(1.1);
         }
 
         .header {
@@ -99,18 +108,20 @@
 
         .brand-name {
             font-family: 'Fira Code', monospace;
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 700;
             color: var(--accent-green);
             margin: 0;
             letter-spacing: -1px;
+            /* Glowing text animation */
+            animation: neonPulse 2s infinite alternate;
         }
 
         .brand-sub {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--text-sub);
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             font-weight: 600;
             margin-top: 5px;
         }
@@ -165,7 +176,7 @@
         .date-icon .mth { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; }
 
         .info-text {
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: var(--text-main);
             line-height: 1.5;
         }
@@ -178,19 +189,21 @@
             padding: 15px;
             border-radius: 4px;
             margin-bottom: 30px;
+            /* Pulsing background animation */
+            animation: warningPulse 3s infinite;
         }
 
         .warning-box strong {
             display: block;
             color: var(--danger);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             margin-bottom: 5px;
             font-family: 'Fira Code', monospace;
         }
 
         .warning-box p {
             margin: 0;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--text-sub);
         }
 
@@ -226,9 +239,28 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 12px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        /* Gi-auto ang height para musunod sa porma sa tibuok screenshot nga walay putol */
+        /* Subtle scanner line effect on QR hover */
+        .qr-container::after {
+            content: "";
+            position: absolute;
+            top: -100%; left: 0; right: 0;
+            height: 4px;
+            background: var(--accent-green);
+            box-shadow: 0 0 10px var(--accent-green);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .qr-container:hover::after {
+            animation: scanLine 2s linear infinite;
+            opacity: 1;
+        }
+
         .qr-container img {
             width: 100%;
             height: auto;
@@ -238,7 +270,7 @@
 
         .account-details {
             font-family: 'Fira Code', monospace;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: var(--text-sub);
             line-height: 1.4;
             margin-bottom: 12px;
@@ -247,10 +279,11 @@
 
         .account-details .acc-name {
             color: var(--text-main);
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 700;
             margin-bottom: 4px;
             font-family: 'Inter', sans-serif;
+            letter-spacing: 1px;
         }
 
         .btn-download {
@@ -269,45 +302,83 @@
             gap: 6px;
             width: 100%;
             justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .btn-download:hover {
             background: var(--accent-green);
             color: #ffffff;
+            box-shadow: 0 0 15px var(--accent-green-glow);
+            transform: translateY(-2px);
         }
         
-        body.light-mode .btn-download {
-            background: #ffffff;
+        body.light-mode .btn-download { background: #ffffff; }
+        body.light-mode .btn-download:hover { background: var(--accent-green); color: #ffffff; }
+
+        .footer {
+            margin-top: 35px;
+            text-align: center;
+            font-size: 1rem;
+            color: var(--text-sub);
+            line-height: 1.6;
         }
-        
-        body.light-mode .btn-download:hover {
-            background: var(--accent-green);
-            color: #ffffff;
+
+        /* Bag-ong styles para sa Facebook Link sa Footer */
+        .footer-link {
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px 0;
+        }
+
+        .footer-link span {
+            color: var(--accent-blue);
+            font-weight: 700;
+            font-size: 1.15rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .footer-link:hover span {
+            color: var(--accent-green);
+            text-shadow: 0 0 15px var(--accent-green-glow);
+            transform: scale(1.05);
+        }
+
+        /* KEYFRAME ANIMATIONS */
+        @keyframes slideUpFade {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes floatCard {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes neonPulse {
+            from { text-shadow: 0 0 5px var(--accent-green-glow); }
+            to { text-shadow: 0 0 15px var(--accent-green), 0 0 25px rgba(16, 185, 129, 0.4); }
+        }
+
+        @keyframes warningPulse {
+            0% { box-shadow: 0 0 0px var(--danger-bg); }
+            50% { box-shadow: 0 0 15px rgba(239, 68, 68, 0.2); }
+            100% { box-shadow: 0 0 0px var(--danger-bg); }
+        }
+
+        @keyframes scanLine {
+            0% { top: 0%; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
         }
 
         @media (max-width: 480px) {
-            .qr-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-            .qr-container {
-                max-width: 280px; /* Para dili ra sad kaayo dako sa gagmay nga cellphone */
-            }
+            .qr-grid { grid-template-columns: 1fr; gap: 30px; }
+            .qr-container { max-width: 280px; }
         }
-
-        .footer {
-            margin-top: 30px;
-            text-align: center;
-            font-size: 0.8rem;
-            color: var(--text-sub);
-            line-height: 1.5;
-        }
-
-        .footer span {
-            color: var(--accent-blue);
-            font-weight: 600;
-        }
-
     </style>
 </head>
 <body>
@@ -373,7 +444,10 @@
         </div>
 
         <div class="footer">
-            Thank you for choosing <span>Terabytes IT Solution</span>.<br>
+            Thank you for choosing <br>
+            <a href="https://www.facebook.com/share/14s4ZhMN7N5/" target="_blank" class="footer-link">
+                <span>TERABYTES IT SOLUTION</span>
+            </a><br>
             Fast. Secure. Reliable.
         </div>
     </div>
