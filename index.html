@@ -3,419 +3,393 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Reminder - Terabytes IT Solutions</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>Payment Reminder - Terabytes IT Solution</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,400&display=swap');
-
         :root {
-            --bg-dark: #020813;
-            --neon-blue: #00a8ff;
-            --neon-blue-glow: rgba(0, 168, 255, 0.3);
-            --neon-red: #ff3333;
-            --text-light: #ffffff;
-            --text-dim: #a0c4d8;
+            /* Dark Mode (Default) - Server/Tech Vibe */
+            --bg-body: #090e17;
+            --bg-card: #151e2e;
+            --bg-qr: #1e293b;
+            --text-main: #f1f5f9;
+            --text-sub: #94a3b8;
+            --accent-green: #10b981;
+            --accent-green-glow: rgba(16, 185, 129, 0.2);
+            --accent-blue: #38bdf8;
+            --danger: #ef4444;
+            --danger-bg: rgba(239, 68, 68, 0.1);
+            --border-line: #334155;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        * {
+        body.light-mode {
+            /* Light Mode - Clean Dashboard Vibe */
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-qr: #f1f5f9;
+            --text-main: #0f172a;
+            --text-sub: #475569;
+            --accent-green: #059669;
+            --accent-green-glow: rgba(5, 150, 105, 0.15);
+            --accent-blue: #0284c7;
+            --danger: #dc2626;
+            --danger-bg: rgba(220, 38, 38, 0.1);
+            --border-line: #e2e8f0;
+            --card-shadow: 0 10px 30px rgba(148, 163, 184, 0.2);
+        }
+
+        *, *::before, *::after {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
         }
 
         body {
-            /* Mibalik sa plain dark color ang gawas nga bahin */
-            background-color: var(--bg-dark);
-            color: var(--text-light);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
+            background-image: 
+                radial-gradient(var(--border-line) 1px, transparent 1px);
+            background-size: 30px 30px;
+            background-position: center center;
         }
 
-        .reminder-card {
-            /* GIBALHIN DIRI ANG BACKGROUND IMAGE PARA SA SULOD RA SA BOX */
-            /* Naay rgba(2,8,19,0.7) aron medyo mo-dark ang picture ug maklaro ang text */
-            background: linear-gradient(rgba(2, 8, 19, 0.7), rgba(2, 8, 19, 0.7)), url('tech-bg.jpg'); 
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            
-            border: 1px solid rgba(0, 168, 255, 0.4);
-            border-radius: 15px;
-            max-width: 800px;
+        .wrapper {
+            background: var(--bg-card);
+            border: 1px solid var(--border-line);
+            border-radius: 12px;
             width: 100%;
-            padding: 30px;
-            box-shadow: 0 0 30px var(--neon-blue-glow);
+            max-width: 460px; /* Gipasadk-an gamay aron masigo ang duha ka QR */
+            padding: 40px 25px;
+            box-shadow: var(--card-shadow);
             position: relative;
+            border-top: 4px solid var(--accent-green);
         }
 
-        /* Header */
-        .header-logo {
+        .theme-switch {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--bg-qr);
+            border: 1px solid var(--border-line);
+            color: var(--text-main);
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        .header-logo h2 {
-            font-weight: 900;
-            letter-spacing: 2px;
-            line-height: 1;
-        }
-        .header-logo h2 span {
-            display: block;
-            font-size: 0.4em;
-            color: var(--neon-blue);
-            font-weight: 400;
-            letter-spacing: 5px;
-            margin-top: 5px;
+            justify-content: center;
+            font-size: 1.1rem;
         }
 
-        /* Grid Layout */
-        .main-content {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 30px;
+        .theme-switch:hover {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .header {
+            text-align: center;
             margin-bottom: 30px;
         }
 
-        /* Left Column */
-        .title-primary {
-            font-size: 3em;
-            font-style: italic;
-            font-weight: 900;
-            line-height: 1;
-            margin-bottom: 15px;
-        }
-        .title-primary .blue-text {
-            color: var(--neon-blue);
-            text-shadow: 0 0 10px var(--neon-blue);
-        }
-        .tagline {
-            color: var(--text-dim);
-            font-size: 0.8em;
-            letter-spacing: 2px;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* Date Box */
-        .date-section {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-        .calendar-icon {
-            background: linear-gradient(135deg, #e0eaf5, #ffffff);
-            border-radius: 10px;
-            color: #000;
-            text-align: center;
-            min-width: 80px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-        }
-        .calendar-icon .month {
-            background: #004792;
-            color: white;
+        .brand-name {
+            font-family: 'Fira Code', monospace;
+            font-size: 2rem;
             font-weight: 700;
-            padding: 5px;
-            font-size: 0.9em;
-        }
-        .calendar-icon .day {
-            font-size: 2.5em;
-            font-weight: 900;
-            padding: 5px;
-        }
-        .date-text {
-            font-size: 0.95em;
-            line-height: 1.5;
-            color: #ffffff;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+            color: var(--accent-green);
+            margin: 0;
+            letter-spacing: -1px;
         }
 
-        /* Warning Box */
-        .warning-box {
-            border: 1px solid var(--neon-red);
-            border-radius: 10px;
-            padding: 15px;
-            display: flex;
-            gap: 15px;
-            background: rgba(255, 51, 51, 0.15); /* Gihimong mas klaro ang pula nga background */
-            box-shadow: inset 0 0 10px rgba(255, 51, 51, 0.2);
-            backdrop-filter: blur(5px);
-        }
-        .warning-box i {
-            color: var(--neon-red);
-            font-size: 1.5em;
-            margin-top: 3px;
-        }
-        .warning-box h4 {
-            color: var(--neon-red);
-            font-size: 0.9em;
-            margin-bottom: 5px;
+        .brand-sub {
+            font-size: 0.85rem;
+            color: var(--text-sub);
             text-transform: uppercase;
-        }
-        .warning-box p {
-            font-size: 0.8em;
-            color: #f0f0f0;
+            letter-spacing: 2px;
+            font-weight: 600;
+            margin-top: 5px;
         }
 
-        /* Right Column (Payment) */
-        .payment-panel {
-            border: 1px solid var(--neon-blue);
-            border-radius: 15px;
-            padding: 20px;
+        .section-title {
             text-align: center;
-            position: relative;
-            background: rgba(0, 168, 255, 0.05);
-            backdrop-filter: blur(5px);
-            box-shadow: 0 0 15px var(--neon-blue-glow);
-        }
-        .secure-badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--bg-dark);
-            border: 1px solid var(--neon-blue);
-            color: var(--text-light);
-            padding: 2px 15px;
-            border-radius: 20px;
-            font-size: 0.7em;
-            white-space: nowrap;
-            box-shadow: 0 0 10px var(--neon-blue-glow);
-        }
-        .gcash-btn {
-            background: #0050e6;
-            color: white;
-            border-radius: 8px;
-            padding: 10px;
-            font-size: 1.5em;
+            font-size: 1.1rem;
             font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin: 15px 0;
-        }
-        .scan-text {
-            font-size: 0.8em;
-            color: var(--neon-blue);
-            letter-spacing: 2px;
-            margin: 10px 0;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
         }
-        .scan-text::before, .scan-text::after {
+
+        .section-title::before, .section-title::after {
             content: "";
             height: 1px;
             width: 30px;
-            background: var(--neon-blue);
-        }
-        .qr-wrapper {
-            background: white;
-            padding: 10px;
-            border-radius: 10px;
-            margin: 0 auto;
-            max-width: 200px;
-        }
-        .qr-wrapper img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        .fee-text {
-            font-size: 0.7em;
-            color: #d0e0f0;
-            margin-top: 10px;
+            background: var(--border-line);
         }
 
-        /* Account Info Footer Row */
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            border: 1px solid var(--neon-blue);
-            border-radius: 10px;
-            padding: 15px 20px;
+        .info-box {
+            background: var(--bg-qr);
+            border: 1px solid var(--border-line);
+            border-radius: 8px;
+            padding: 20px;
             margin-bottom: 20px;
-            background: rgba(0, 168, 255, 0.08);
-            backdrop-filter: blur(5px);
-        }
-        .info-item {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
         }
-        .info-icon {
-            background: rgba(0, 168, 255, 0.1);
-            color: var(--neon-blue);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+
+        .date-icon {
+            background: var(--accent-green-glow);
+            color: var(--accent-green);
+            min-width: 60px;
+            height: 60px;
+            border-radius: 8px;
             display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            align-items: center;
-            font-size: 1.2em;
-            border: 1px solid var(--neon-blue-glow);
-        }
-        .info-label {
-            font-size: 0.7em;
-            color: var(--neon-blue);
-            letter-spacing: 1px;
-        }
-        .info-value {
-            font-weight: 700;
-            font-size: 1.1em;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            font-family: 'Fira Code', monospace;
+            border: 1px solid var(--accent-green);
         }
 
-        /* Action Button */
-        .action-btn {
-            display: block;
-            width: 100%;
-            background: linear-gradient(90deg, #002244, #0055aa, #002244);
-            border: 1px solid var(--neon-blue);
-            color: white;
-            text-align: center;
+        .date-icon .day { font-size: 1.5rem; font-weight: 700; line-height: 1; }
+        .date-icon .mth { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; }
+
+        .info-text {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        .info-text b { color: var(--accent-green); }
+
+        .warning-box {
+            background: var(--danger-bg);
+            border-left: 4px solid var(--danger);
             padding: 15px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-size: 1.1em;
-            font-weight: 700;
-            box-shadow: 0 0 15px var(--neon-blue-glow);
-            transition: 0.3s;
-        }
-        .action-btn:hover {
-            box-shadow: 0 0 25px var(--neon-blue);
-            background: linear-gradient(90deg, #003366, #0066cc, #003366);
+            border-radius: 4px;
+            margin-bottom: 30px;
         }
 
-        /* Main Footer */
-        .main-footer {
+        .warning-box strong {
+            display: block;
+            color: var(--danger);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .warning-box p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: var(--text-sub);
+        }
+
+        .payment-section {
+            background: var(--bg-qr);
+            border: 1px dashed var(--border-line);
+            border-radius: 12px;
+            padding: 25px 15px;
             text-align: center;
-            margin-top: 20px;
-            font-size: 0.7em;
-            color: #d0e0f0;
-        }
-        .main-footer strong {
-            color: var(--neon-blue);
-            font-size: 1.2em;
-            letter-spacing: 1px;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .main-content {
+        /* GRID PARA SA DUHA KA QR */
+        .qr-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .qr-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .qr-container {
+            background: #ffffff;
+            padding: 8px;
+            border-radius: 8px;
+            border: 2px solid var(--accent-green);
+            width: 100%;
+            max-width: 160px;
+            aspect-ratio: 1 / 1; /* Pugson nga square aron parehas kadako */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .qr-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Aron walay ma-stretch */
+            border-radius: 4px;
+        }
+
+        .account-details {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            color: var(--text-sub);
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        .account-details .acc-name {
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-download {
+            background: var(--bg-card);
+            color: var(--accent-green);
+            border: 1px solid var(--accent-green);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn-download:hover {
+            background: var(--accent-green);
+            color: #ffffff;
+        }
+        
+        body.light-mode .btn-download {
+            background: #ffffff;
+        }
+        
+        body.light-mode .btn-download:hover {
+            background: var(--accent-green);
+            color: #ffffff;
+        }
+
+        /* Para sa gagmay nga screen/phones */
+        @media (max-width: 400px) {
+            .qr-grid {
                 grid-template-columns: 1fr;
+                gap: 25px;
             }
-            .info-row {
-                flex-direction: column;
-                gap: 15px;
+            .qr-container {
+                max-width: 180px;
             }
         }
+
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            line-height: 1.5;
+        }
+
+        .footer span {
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
     </style>
 </head>
 <body>
 
-<div class="reminder-card">
-    
-    <div class="header-logo">
-        <i class="fas fa-wifi" style="font-size: 2em; color: var(--neon-blue);"></i>
-        <h2>TERABYTES <span>IT SOLUTIONS</span></h2>
-    </div>
+    <div class="wrapper">
+        <button class="theme-switch" id="toggleTheme" title="Toggle Light/Dark Mode">☀️</button>
 
-    <div class="main-content">
-        <!-- Left Side -->
-        <div class="left-panel">
-            <h1 class="title-primary">PAYMENT<br><span class="blue-text">REMINDER</span> <i class="fas fa-bell" style="color: #ffd700; font-size: 0.8em; text-shadow: 0 0 10px #ffd700;"></i></h1>
-            
-            <div class="tagline">
-                <span style="color: var(--neon-blue);">////</span> 
-                FAST CONNECTION. RELIABLE SERVICE. 
-                <span style="color: var(--neon-blue);">////</span>
+        <div class="header">
+            <h1 class="brand-name">TERABYTES</h1>
+            <div class="brand-sub">IT Solution</div>
+        </div>
+
+        <div class="section-title">Billing Statement</div>
+
+        <div class="info-box">
+            <div class="date-icon">
+                <span class="day">29</span>
+                <span class="mth">Due</span>
             </div>
+            <div class="info-text">
+                Your internet subscription is due every <b>29th</b> of the month. Kindly settle your account on or before the <b>3rd</b>.
+            </div>
+        </div>
 
-            <div class="date-section">
-                <div class="calendar-icon">
-                    <div class="month">SEP</div>
-                    <div class="day">2</div>
+        <div class="warning-box">
+            <strong>[!] SYSTEM CUT-OFF: 3RD</strong>
+            <p>Automated disconnection will be triggered for accounts with unpaid balances after the 3rd of the following month.</p>
+        </div>
+
+        <div class="payment-section">
+            <div class="section-title" style="font-size: 0.95rem;">Scan to Pay (GCash)</div>
+            
+            <div class="qr-grid">
+                <!-- Unang QR (Mark Louie) -->
+                <div class="qr-card">
+                    <div class="qr-container">
+                        <img src="kram-qr.jpg" alt="Kram GCash QR">
+                    </div>
+                    <div class="account-details">
+                        <div class="acc-name">MA*K LO**E J.</div>
+                        <div>+63 952 445 ****</div>
+                    </div>
+                    <a href="kram-qr.jpg" download="Kram_GCash_QR.jpg" class="btn-download">
+                        📥 Save QR
+                    </a>
                 </div>
-                <div class="date-text">
-                    Please settle your internet subscription bill as soon as possible to avoid service disconnection.
+
+                <!-- Ikaduhang QR (Regina) -->
+                <div class="qr-card">
+                    <div class="qr-container">
+                        <img src="regina-qr.jpg" alt="Regina GCash QR">
+                    </div>
+                    <div class="account-details">
+                        <div class="acc-name">RE***A J.</div>
+                        <div>0964 092 ****</div>
+                    </div>
+                    <a href="regina-qr.jpg" download="Regina_GCash_QR.jpg" class="btn-download">
+                        📥 Save QR
+                    </a>
                 </div>
             </div>
 
-            <div class="warning-box">
-                <i class="fas fa-exclamation-circle"></i>
-                <div>
-                    <h4>Accounts with unpaid balance will be subject to disconnection.</h4>
-                    <p>If you have any outstanding balance, please settle it at your earliest convenience.</p>
-                </div>
-            </div>
         </div>
 
-        <!-- Right Side -->
-        <div class="payment-panel">
-            <div class="secure-badge"><i class="fas fa-lock"></i> SECURE & EASY PAYMENT</div>
-            
-            <div class="gcash-btn">
-                <i class="fas fa-wallet"></i> GCash
-            </div>
-            
-            <div class="scan-text">SCAN TO PAY</div>
-            
-            <div class="qr-wrapper">
-                <!-- QR CODE IMAGE -->
-                <img src="qr.jpg" alt="QR Code">
-            </div>
-            
-            <div class="fee-text">Transfer fees may apply.</div>
+        <div class="footer">
+            Thank you for choosing <span>Terabytes IT Solution</span>.<br>
+            Fast. Secure. Reliable.
         </div>
     </div>
 
-    <!-- Info Row -->
-    <div class="info-row">
-        <div class="info-item">
-            <div class="info-icon"><i class="fas fa-user"></i></div>
-            <div>
-                <div class="info-label">ACCOUNT NAME</div>
-                <div class="info-value">RE*** A J.</div>
-            </div>
-        </div>
-        <div class="info-item">
-            <div class="info-icon"><i class="fas fa-phone"></i></div>
-            <div>
-                <div class="info-label">MOBILE NO.</div>
-                <div class="info-value">0964 092 ***</div>
-            </div>
-        </div>
-        <div class="info-item">
-            <div class="info-icon"><i class="fas fa-id-card"></i></div>
-            <div>
-                <div class="info-label">USER ID</div>
-                <div class="info-value">********8VRHKF</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- DOWNLOAD BUTTON -->
-    <a href="qr.jpg" download class="action-btn">
-        <i class="fas fa-download"></i> Save QR Code for GCash/Maya
-    </a>
-
-    <div class="main-footer">
-        Powered by<br>
-        <strong>TERABYTES IT SOLUTIONS</strong>
-    </div>
-
-</div>
-
+    <script>
+        const btn = document.getElementById('toggleTheme');
+        btn.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            if(document.body.classList.contains('light-mode')) {
+                btn.textContent = '🌙';
+            } else {
+                btn.textContent = '☀️';
+            }
+        });
+    </script>
 </body>
 </html>
