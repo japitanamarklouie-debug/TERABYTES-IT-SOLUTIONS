@@ -19,6 +19,9 @@
             --danger-bg: rgba(239, 68, 68, 0.1);
             --border-line: #334155;
             --card-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            --scanner-line: #10b981;
+            --scanner-glow: rgba(16, 185, 129, 0.8);
+            --scanner-track: rgba(16, 185, 129, 0.15);
         }
 
         body.light-mode {
@@ -34,6 +37,9 @@
             --danger-bg: rgba(220, 38, 38, 0.1);
             --border-line: #e2e8f0;
             --card-shadow: 0 15px 35px rgba(148, 163, 184, 0.2);
+            --scanner-line: #059669;
+            --scanner-glow: rgba(5, 150, 105, 0.8);
+            --scanner-track: rgba(5, 150, 105, 0.15);
         }
 
         *, *::before, *::after {
@@ -190,12 +196,25 @@
             animation: warningPulse 3s infinite;
         }
 
+        .warning-box-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 5px;
+        }
+
         .warning-box strong {
-            display: block;
             color: var(--danger);
             font-size: 0.95rem;
-            margin-bottom: 5px;
             font-family: 'Fira Code', monospace;
+        }
+
+        /* Bell Icon Shake Animation */
+        .bell-icon {
+            display: inline-block;
+            font-size: 1.1rem;
+            animation: bellShake 1.2s ease-in-out infinite;
+            transform-origin: top center;
         }
 
         .warning-box p {
@@ -241,20 +260,17 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        .qr-container::after {
+        /* Continuous Laser Scanner Line Animation */
+        .qr-container::before {
             content: "";
             position: absolute;
-            top: -100%; left: 0; right: 0;
-            height: 4px;
-            background: var(--accent-green);
-            box-shadow: 0 0 10px var(--accent-green);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
-        .qr-container:hover::after {
-            animation: scanLine 2s linear infinite;
-            opacity: 1;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--scanner-line);
+            box-shadow: 0 0 10px 2px var(--scanner-glow), 0 0 20px var(--scanner-track);
+            z-index: 5;
+            animation: scanLineSmooth 2.5s ease-in-out infinite alternate;
         }
 
         .qr-container img {
@@ -362,16 +378,28 @@
             100% { box-shadow: 0 0 0px var(--danger-bg); }
         }
 
-        @keyframes scanLine {
-            0% { top: 0%; opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { top: 100%; opacity: 0; }
+        /* Smooth Scanner Line Animation Keyframes */
+        @keyframes scanLineSmooth {
+            0% { top: 2%; opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { top: 95%; opacity: 0.4; }
+        }
+
+        /* Bell Shake Keyframes */
+        @keyframes bellShake {
+            0% { transform: rotate(0deg); }
+            15% { transform: rotate(14deg); }
+            30% { transform: rotate(-14deg); }
+            45% { transform: rotate(10deg); }
+            60% { transform: rotate(-10deg); }
+            75% { transform: rotate(4deg); }
+            85% { transform: rotate(-4deg); }
+            100% { transform: rotate(0deg); }
         }
 
         @media (max-width: 480px) {
             .qr-grid { grid-template-columns: 1fr; gap: 30px; }
-            .qr-container { max-width: 280px; }
+            .qr-container { max-width: 280px; margin-left: auto; margin-right: auto; }
         }
     </style>
 </head>
@@ -398,7 +426,10 @@
         </div>
 
         <div class="warning-box">
-            <strong>[!] SYSTEM CUT-OFF: 3RD</strong>
+            <div class="warning-box-header">
+                <span class="bell-icon">🔔</span>
+                <strong>[!] SYSTEM CUT-OFF: 3RD</strong>
+            </div>
             <p>Automated disconnection will be triggered for accounts with unpaid balances after the 3rd of the following month.</p>
         </div>
 
@@ -406,7 +437,7 @@
             <div class="section-title" style="font-size: 0.95rem;">Scan to Pay (GCash)</div>
             
             <div class="qr-grid">
-                <!-- Unang QR (Regina) - Gibalhin sa una -->
+                <!-- Unang QR (Regina) -->
                 <div class="qr-card">
                     <div class="qr-container">
                         <img src="regina-qr.jpg" alt="Regina GCash QR">
@@ -420,7 +451,7 @@
                     </a>
                 </div>
 
-                <!-- Ikaduhang QR (Mark Louie) - Gibalhin sa ikaduha -->
+                <!-- Ikaduhang QR (Mark Louie) -->
                 <div class="qr-card">
                     <div class="qr-container">
                         <img src="kram-qr.jpg" alt="Kram GCash QR">
