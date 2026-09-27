@@ -111,17 +111,15 @@
             margin-bottom: 30px;
         }
 
+        /* GI-UPDATE NGA CSS PARA MASAGAD ANG LOGO */
         .header-logo {
-            max-width: 130px;
+            width: calc(100% + 50px); /* I-cover ang left/right padding */
+            max-width: none;
             height: auto;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-            border: 2px solid var(--border-line);
-        }
-
-        body.light-mode .header-logo {
-            box-shadow: 0 8px 20px rgba(148, 163, 184, 0.3);
+            margin: -40px -25px 20px -25px; /* Negative margin para mosagad sa ibabaw ug sa kilid */
+            border-radius: 8px 8px 0 0; /* I-match ang kanto sa wrapper */
+            display: block;
+            border-bottom: 3px solid var(--accent-green); /* Gamay nga separator line sa ubos sa logo */
         }
 
         .brand-name {
